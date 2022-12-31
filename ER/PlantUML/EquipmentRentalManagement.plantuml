@@ -1,0 +1,67 @@
+@startuml
+
+hide circle
+hide stereotype
+
+skinparam linetype ortho
+skinparam RoundCorner 5
+skinparam Padding 1
+skinparam ArrowFontSize 12
+skinparam ClassBorderColor Black
+skinparam ClassBorderColor<<custom>> Blue
+
+entity **Legend** <<standard>> #CCFFEE {
+    (PK) = Primary Key
+    --
+    (PN) = Primary Name
+    * Required
+    + Recommended
+    Standard
+    <color:blue>Custom</color>
+}
+
+title  Entity Model
+
+footer Generated %date("yyyy-MM-dd") by UML Diagram Generator 1.2021.12.1 for XrmToolBox
+
+entity ya_equipmenttype <<custom>>
+{
+    *ya_equipmenttypeid (PK): Uniqueidentifier
+    --
+    *<color:blue>ya_name (PN)</color>: String
+}
+
+entity ya_rental <<custom>>
+{
+    *ya_rentalid (PK): Uniqueidentifier
+    --
+    <color:blue>ya_id (PN)</color>: String
+    <color:blue>ya_enddateactual</color>: DateTime
+    <color:blue>ya_enddatereserve</color>: DateTime
+    <color:blue>ya_equipment</color>: Lookup
+    <color:blue>ya_startdateactual</color>: DateTime
+    <color:blue>ya_startdatereserve</color>: DateTime
+    <color:blue>ya_user</color>: Lookup
+}
+
+entity ya_equipment <<custom>>
+{
+    *ya_equipmentid (PK): Uniqueidentifier
+    --
+    *<color:blue>ya_managementnumber (PN)</color>: String
+    <color:blue>ya_itemnumber</color>: String
+    <color:blue>ya_location</color>: String
+    <color:blue>ya_modelnumber</color>: String
+    <color:blue>ya_name</color>: String
+    <color:blue>ya_notes</color>: Memo
+    <color:blue>ya_photoid</color>: Uniqueidentifier
+    <color:blue>ya_purchasedat</color>: DateTime
+    <color:blue>ya_quantity</color>: Integer
+    <color:blue>ya_serialnumber</color>: String
+    <color:blue>ya_type</color>: Lookup
+}
+
+ya_equipmenttype --{ ya_equipment: ya_type
+ya_equipment --{ ya_rental: ya_equipment
+
+@enduml
